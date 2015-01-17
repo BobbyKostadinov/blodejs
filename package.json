@@ -21,6 +21,7 @@
     "gulp-bump": "^0.1.11",
     "gulp-filter": "^2.0.0",
     "gulp-git": "^0.5.6",
+    "gulp-nodemon": "^1.0.5",
     "gulp-tag-version": "^1.2.1",
     "load-common-gulp-tasks": "^1.1.0",
     "should": "^4.6.0",
