@@ -26,8 +26,10 @@ RUN sudo apt-get -q -y install curl
 RUN npm install -g n
 RUN n 0.11.14
 
-RUN node --harmony /srv/www/server.js &
+ADD start.sh /tmp/start.sh
+
+RUN chmod +x /tmp/start.sh
 
 EXPOSE 80
 
-CMD nginx
+CMD /tmp/start.sh

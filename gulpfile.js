@@ -5,7 +5,26 @@ filter = require('gulp-filter'),
 tag_version = require('gulp-tag-version'),
 gulpNodemon = require('gulp-nodemon');
 
-require('load-common-gulp-tasks')(gulp);
+require('load-common-gulp-tasks')(gulp, {
+    paths: {
+        lint: [
+            './*.js',
+            '!server.js',
+            './lib/**/*.js',
+            './test/**/*.js',
+            '!./lib/*/view/*.min.js',
+            '!./lib/**/node_modules/**/*.js',
+            '!./lib/**/target/**/*.js',
+            '!./lib/**/node_modules/*.js',
+            '!./lib/*/content/scripts/*',
+        ],
+        felint: [
+            './lib/*/content/scripts/*.js',
+            '!./lib/*/content/scripts/*.min.js',
+        ]
+    }
+});
+
 
 function inc(importance) {
     return gulp.src(['./package.json'])
