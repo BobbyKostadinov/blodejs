@@ -6,6 +6,7 @@ tag_version = require('gulp-tag-version'),
 gulpNodemon = require('gulp-nodemon');
 
 require('load-common-gulp-tasks')(gulp, {
+    includeUntested: true,
     paths: {
         lint: [
             './*.js',
@@ -16,11 +17,20 @@ require('load-common-gulp-tasks')(gulp, {
             '!./lib/**/node_modules/**/*.js',
             '!./lib/**/target/**/*.js',
             '!./lib/**/node_modules/*.js',
-            '!./lib/*/content/scripts/*',
         ],
         felint: [
             './lib/*/content/scripts/*.js',
             '!./lib/*/content/scripts/*.min.js',
+        ],
+
+        cover: [
+          './test/*.js',
+          './test/**/*.js',
+          './lib/**/test/**/*.js'
+        ],
+        test: [
+          './test/**/*.js',
+          './lib/**/test/**/*.js'
         ]
     }
 });

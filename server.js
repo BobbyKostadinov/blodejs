@@ -1,27 +1,30 @@
 // jshint esnext
+var mount = require('koa-mount');
+    koa = require('koa');
+    Blog = require('./lib/blog/lib/app.js');
+    server = koa();
 
-var koa = require('koa');
-var app = koa();
+// Headers
+server.use(function *(next){
+    this.set('X-Powered-By', 'blodejs');
+    yield next;
+});
 
-// x-response-time
-app.use(function *(next){
+// logger
+server.use(function *(next){
     var start = new Date;
     yield next;
     var ms = new Date - start;
     this.set('X-Response-Time', ms + 'ms');
-});
-
-// logger
-app.use(function *(next){
-    var start = new Date;
-    yield next;
-    var ms = new Date - start;
     console.log('%s %s - %s', this.method, this.url, ms);
 });
 
-// response
-app.use(function *(){
-    this.body = 'Hello World';
+
+server.use(mount('/blog', new Blog()));
+
+server.use(function *() {
+  console.log('we should not be here yet. going away');
+  this.redirect(('/blog'));
 });
 
-app.listen(8888);
+server.listen(8888);
