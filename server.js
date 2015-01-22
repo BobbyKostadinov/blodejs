@@ -1,8 +1,9 @@
 // jshint esnext
 var mount = require('koa-mount');
     koa = require('koa');
-    Blog = require('./lib/blog/lib/app.js');
-    server = koa();
+    blog = require('./lib/blog/lib/app.js');
+    server = koa(),
+    zone = require('./lib/pretty/lib/zone');
 
 // Headers
 server.use(function *(next){
@@ -19,12 +20,22 @@ server.use(function *(next){
     console.log('%s %s - %s', this.method, this.url, ms);
 });
 
+server.use(function* (next){
+  var self = this;
+  self.body = '';
+  zone.render('header').then(function(htmlBuffer) {
+    console.log('rendering the header');
+    self.body += htmlBuffer.toString();
+  });
+  yield next;
 
-server.use(mount('/blog', new Blog()));
-
-server.use(function *() {
-  console.log('we should not be here yet. going away');
-  this.redirect(('/blog'));
+  zone.render('footer').then(function(htmlBuffer) {
+    console.log('rendering the footer');
+    self.body += htmlBuffer.toString();
+  });
 });
+
+server.use(mount('/blog', blog.init()));
+
 
 server.listen(8888);

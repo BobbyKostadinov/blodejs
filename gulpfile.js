@@ -1,12 +1,12 @@
 var gulp = require('gulp'),
-git = require('gulp-git'),
-bump = require('gulp-bump'),
-filter = require('gulp-filter'),
-tag_version = require('gulp-tag-version'),
-gulpNodemon = require('gulp-nodemon');
+    git = require('gulp-git'),
+    bump = require('gulp-bump'),
+    filter = require('gulp-filter'),
+    tag_version = require('gulp-tag-version'),
+    gulpNodemon = require('gulp-nodemon');
 
 require('load-common-gulp-tasks')(gulp, {
-    includeUntested: true,
+    includeUntested: false,
     paths: {
         lint: [
             './*.js',
@@ -22,11 +22,8 @@ require('load-common-gulp-tasks')(gulp, {
             './lib/*/content/scripts/*.js',
             '!./lib/*/content/scripts/*.min.js',
         ],
-
         cover: [
-          './test/*.js',
-          './test/**/*.js',
-          './lib/**/test/**/*.js'
+          './lib/**/lib/*.js',
         ],
         test: [
           './test/**/*.js',
