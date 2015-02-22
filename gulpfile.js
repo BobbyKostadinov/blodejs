@@ -7,6 +7,9 @@ var gulp = require('gulp'),
 
 require('load-common-gulp-tasks')(gulp, {
     includeUntested: false,
+    jshintrc: {
+      server: ".jshintrc"
+    },
     paths: {
         lint: [
             './*.js',

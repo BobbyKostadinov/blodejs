@@ -1,8 +1,9 @@
-// jshint esnext
+// jshint esnext=true
 var mount = require('koa-mount');
     koa = require('koa');
     blog = require('./lib/blog/lib/app.js');
     server = koa(),
+    logger = require('./lib/logger/lib/logger'),
     middleware = require('./lib/middleware/lib/loader');
 
 // Headers
@@ -17,11 +18,12 @@ server.use(function *(next){
     yield next;
     var ms = new Date - start;
     this.set('X-Response-Time', ms + 'ms');
-    console.log('%s %s - %s', this.method, this.url, ms);
+    logger.info(this.method, this.url, ms);
+
 });
 
 middleware.attach(server, './layout').then (function (server) {
   server.use(mount('/blog', blog.init()));
   server.listen(8888);
 })
-  .catch(function(err) { console.log(err) });
+  .catch(function(err) { logger.err(err) });
