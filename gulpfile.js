@@ -3,10 +3,20 @@ var gulp = require('gulp'),
     bump = require('gulp-bump'),
     filter = require('gulp-filter'),
     tag_version = require('gulp-tag-version'),
-    gulpNodemon = require('gulp-nodemon');
+    gulpNodemon = require('gulp-nodemon'),
+    isparta = require('isparta');
 
+
+gulp.src('lib/**.js')
+  .pipe(istanbul({
+
+  }));
+console.log(isparta);
 require('load-common-gulp-tasks')(gulp, {
     includeUntested: false,
+    istanbul: {
+      instrumenter: isparta.Instrumenter
+    },
     jshintrc: {
       server: ".jshintrc"
     },
