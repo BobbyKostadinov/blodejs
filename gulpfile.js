@@ -6,12 +6,6 @@ var gulp = require('gulp'),
     gulpNodemon = require('gulp-nodemon'),
     isparta = require('isparta');
 
-
-gulp.src('lib/**.js')
-  .pipe(istanbul({
-
-  }));
-console.log(isparta);
 require('load-common-gulp-tasks')(gulp, {
     includeUntested: false,
     istanbul: {
