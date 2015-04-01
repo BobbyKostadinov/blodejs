@@ -4,6 +4,7 @@
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
 
+dist/
 node_modules/
-target/
+coverage/
 npm-debug.log

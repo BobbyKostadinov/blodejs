@@ -1,10 +1,27 @@
 var gulp = require('gulp'),
-    git = require('gulp-git'),
-    bump = require('gulp-bump'),
-    filter = require('gulp-filter'),
-    tag_version = require('gulp-tag-version'),
-    gulpNodemon = require('gulp-nodemon'),
-    isparta = require('isparta');
+  nodemon = require('./gulp/nodemon'),
+  jsx = require('./gulp/jsx'),
+  sass = require('./gulp/sass'),
+  clean = require('./gulp/clean'),
+  bump = require('gulp-bump'),
+  filter = require('gulp-filter'),
+  tag_version = require('gulp-tag-version'),
+  gulpNodemon = require('gulp-nodemon'),
+  isparta = require('isparta');
+
+gulp.task('default', ['jsx', 'sass']);
+gulp.task('dev', ['jsx-watch', 'sass-watch', 'nodemon']);
+
+gulp.task('jsx', jsx.toJs);
+gulp.task('jsx-watch', jsx.toJsWatch);
+
+gulp.task('sass', sass.toCss);
+gulp.task('sass-watch', sass.toCssWatch);
+
+gulp.task('nodemon', nodemon.start);
+
+gulp.task('clean', clean.clean);
+
 
 require('load-common-gulp-tasks')(gulp, {
     includeUntested: false,
@@ -18,27 +35,58 @@ require('load-common-gulp-tasks')(gulp, {
         lint: [
             './*.js',
             '!server.js',
-            './lib/**/*.js',
-            './test/**/*.js',
-            '!./lib/*/view/*.min.js',
-            '!./lib/**/node_modules/**/*.js',
             '!./lib/**/target/**/*.js',
-            '!./lib/**/node_modules/*.js',
+            '!./lib/components/**'
         ],
         felint: [
             './lib/*/content/scripts/*.js',
-            '!./lib/*/content/scripts/*.min.js',
+            '.!/lib/components/*'
         ],
         cover: [
           './lib/**/lib/*.js',
         ],
         test: [
           './test/**/*.js',
+          '!./lib/components/**',
           './lib/**/test/**/*.js'
         ]
     }
 });
+gulp.task('jsx-test', require('gulp-jsx-coverage').createTask({
+    src: ['lib/components/**/*-test.js'],  // will pass to gulp.src as mocha tests
+    istanbul: {                                      // will pass to istanbul
+        coverageVariable: '__MY_TEST_COVERAGE__',
+        exclude: /node_modules|test[0-9]/            // do not instrument these files
+    },
+    transpile: {                                     // this is default whitelist/blacklist for transpilers
+        babel: {
+            include: /\.jsx?$/,
+            exclude: /node_modules/
+        },
+        coffee: {
+            include: /\.coffee$/
+        }
+    },
+    coverage: {
+        reporters: ['text-summary', 'json', 'lcov'], // list of istanbul reporters
+        directory: 'coverage'                        // will pass to istanbul reporters
+    },
+    mocha: {                                         // will pass to mocha
+        reporter: 'spec'
+    },
+    babel: {                                         // will pass to babel
+        sourceMap: 'inline'                          // get hints in HTML covarage reports
+    },
+    coffee: {                                        // will pass to coffee.compile
+        sourceMap: true                              // true to get hints in HTML coverage reports
+    },
 
+    //optional
+    cleanup: function () {
+        // do extra tasks after test done
+        // EX: clean global.window when test with jsdom
+    }
+}));
 
 function inc(importance) {
     return gulp.src(['./package.json'])
@@ -48,17 +96,6 @@ function inc(importance) {
     .pipe(filter('package.json'))
     .pipe(tag_version());
 }
-gulp.task('start-watch', function () {
-
-    gulpNodemon({
-        script: 'server.js',
-        ext: 'js',
-    })
-    .on('change')
-    .on('restart', function () {
-        console.log('restarted!');
-    });
-});
 
 function incNoTag(importance) {
     return gulp.src(['./package.json'])
