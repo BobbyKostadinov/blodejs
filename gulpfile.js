@@ -24,7 +24,7 @@ gulp.task('clean', clean.clean);
 
 
 require('load-common-gulp-tasks')(gulp, {
-    includeUntested: false,
+    includeUntested: true,
     istanbul: {
       instrumenter: isparta.Instrumenter
     },
@@ -43,7 +43,9 @@ require('load-common-gulp-tasks')(gulp, {
             '.!/lib/components/*'
         ],
         cover: [
-          './lib/**/lib/*.js',
+          './lib/**/*.js',
+          '!./lib/**/*-test.js',
+          '!./lib/components/**'
         ],
         test: [
           './test/**/*.js',

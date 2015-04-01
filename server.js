@@ -6,7 +6,6 @@ var compression = require('compression'),
     errors = require('common-errors'),
     PORT = process.env.PORT || 8000,
     IS_PROD = 'production' === process.env.NODE_ENV,
-    info = require('./package.json'),
     mount = require('koa-mount');
     React = require('react'),
     koaBunyanLogger = require('koa-bunyan-logger'),
@@ -46,14 +45,8 @@ router.get('/favicon.ico', function *(next) {
   this.body = '';
   yield next;
 });
-router.get('/_health', function *(next) {
-  this.body = {
-    status: 'ok',
-    name: info.name,
-    version: info.version
-  };
-  yield next;
-});
+
+router.get('/_health', require('./lib/resources/health'));
 router.get('/', function *(next) {
   var props = {};
   this.set('X-Request-Id', this.reqId);
