@@ -1,7 +1,6 @@
 require('node-jsx').install({extension: '.jsx'});
 
 var compression = require('compression'),
-    morgan = require('morgan'),
     serveStatic = require('koa-static'),
     errors = require('common-errors'),
     PORT = process.env.PORT || 8000,
