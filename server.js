@@ -1,65 +1,14 @@
-require('node-jsx').install({extension: '.jsx'});
+// Load the http module to create an http server.
+var http = require('http');
 
-var compression = require('compression'),
-    serveStatic = require('koa-static'),
-    errors = require('common-errors'),
-    PORT = process.env.PORT || 8000,
-    IS_PROD = 'production' === process.env.NODE_ENV,
-    mount = require('koa-mount');
-    React = require('react'),
-    koaBunyanLogger = require('koa-bunyan-logger'),
-    App = React.createFactory(require('./lib/components/App/App.jsx')),
-    router = require('koa-router')();
-    app = module.exports = require('koa')();
-
-
-//Init logger
-app.use(koaBunyanLogger());
-app.use(koaBunyanLogger.requestIdContext());
-app.use(koaBunyanLogger.timeContext());
-
-app.use(function *(next) {
-  var start = new Date;
-  yield next;
-  var ms = new Date - start;
-  this.set('X-Response-Time', ms + 'ms');
-  this.log.info('%s %s for %s; duration: %sms', this.request.method, this.request.ip, this.path, ms);
+// Configure our HTTP server to respond with Hello World to all requests.
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("Hello World\n");
 });
 
-//Set cache headers
-app.use(function *(next) {
-  this.set('Expires', 'Fri, 01 Jan 1990 00:00:00 GMT');
-  this.set('Cache-Control', 'no-store, ' + 'no-cache, must-revalidate, max-age=0');
-  this.set('Pragma', 'no-cache');
-  yield next;
-});
+// Listen on port 8000, IP defaults to 127.0.0.1
+server.listen(8888);
 
-
-app.use(function *(next) {
-   compression();
-   yield next;
-});
-
-router.get('/favicon.ico', function *(next) {
-  this.body = '';
-  yield next;
-});
-
-router.get('/_health', require('./lib/resources/health'));
-router.get('/', function *(next) {
-  var props = {};
-  this.set('X-Request-Id', this.reqId);
-  this.body = '<!DOCTYPE html>' + React.renderToString(App(props));
-  yield next;
-});
-
-app
-  .use(router.routes());
-
-app.use(mount('/assets', serveStatic(__dirname + '/dist')));
-
-if (!module.parent) {
-  app.listen(PORT, function () {
-    console.log('on :%s', PORT);
-  });
-}
+// Put a friendly message on the terminal
+console.log("Server running at http://127.0.0.1:8000/");
