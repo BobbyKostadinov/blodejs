@@ -37,7 +37,7 @@ RUN chmod +x /tmp/start.sh
 
 ADD . /srv/www
 
-RUN npm install
+#RUN npm install
 
 EXPOSE 80
 
