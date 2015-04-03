@@ -3,7 +3,7 @@ require('node-jsx').install({extension: '.jsx'});
 var compression = require('compression'),
     serveStatic = require('koa-static'),
     errors = require('common-errors'),
-    PORT = process.env.PORT || 8000,
+    PORT = process.env.PORT || 8888,
     IS_PROD = 'production' === process.env.NODE_ENV,
     mount = require('koa-mount');
     React = require('react'),

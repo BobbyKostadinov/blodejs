@@ -4,17 +4,20 @@
 # a list of version numbers.
 FROM phusion/baseimage:0.9.16
 
-RUN apt-get update && apt-get -y install git build-essential  && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+run DEBIAN_FRONTEND=noninteractiv
 
+RUN ulimit -n 1000 && \
+    apt-get update && \
+    apt-get install curl
+
+RUN apt-get install -yq nginx make
+
+RUN apt-get update && apt-get -y install git build-essential curl && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
-
 RUN apt-get install -y nodejs && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-
-
-RUN apt-get update
-
-RUN apt-get -y install nginx make
+RUN npm install -g gulp
+RUN npm install -g n
+RUN n 0.12.1
 
 RUN mkdir /srv/www
 
@@ -23,22 +26,18 @@ ADD nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /srv/www
 
-ADD . /srv/www/
-
-RUN export NODE_ENV=APP_ENV
-RUN npm install
-
-RUN apt-get update
-
-RUN export DEBIAN_FRONTEND=noninteractive
-RUN sudo apt-get -q -y install curl
-
-RUN npm install -g n
-RUN n 0.11.14
+RUN export NODE_ENV=production
 
 ADD start.sh /tmp/start.sh
 
 RUN chmod +x /tmp/start.sh
+
+
+#Extract this into its own Dockerfile within the application
+
+ADD . /srv/www
+
+RUN npm install
 
 EXPOSE 80
 
