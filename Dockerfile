@@ -19,6 +19,8 @@ RUN npm install -g gulp
 RUN npm install -g n
 RUN n 0.12.1
 
+RUN npm install -g bunyan
+
 RUN mkdir /srv/www
 
 ADD default /etc/nginx/sites-available/default
