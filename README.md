@@ -1,3 +1,7 @@
+## Build Status
+
+[![Build Status](https://travis-ci.org/BobbyKostadinov/blodejs.svg?branch=master)](https://travis-ci.org/BobbyKostadinov/blodejs)
+
 ## Intro
 
 Contains NODEjs + Nginx set up to run on AWS Elastic Beanstalk. I use this for my own projects' set up
