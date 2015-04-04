@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "postinstall": "gulp build",
-    "start": "node --harmony server.js | ./node_modules/.bin/bunyan -o short",
+    "start": "gulp build | node --harmony server.js | ./node_modules/.bin/bunyan -o short",
     "test": "gulp ci --harmony"
   },
   "engine": "node >= 0.11",
