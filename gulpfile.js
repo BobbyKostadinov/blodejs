@@ -10,7 +10,7 @@ var gulp = require('gulp'),
   gulpNodemon = require('gulp-nodemon'),
   isparta = require('isparta');
 
-gulp.task('default', ['jsx', 'npmr']);
+gulp.task('build', ['jsx', 'sass']);
 gulp.task('dev', ['jsx-watch', 'sass-watch', 'nodemon']);
 
 gulp.task('jsx', jsx.toJs);
