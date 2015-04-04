@@ -34,10 +34,8 @@ RUN chmod +x /tmp/start.sh
 
 #Extract this into its own Dockerfile within the application
 
-ADD package.json /srv/www/package.json
-RUN npm install
-
 ADD . /srv/www
+RUN npm cache clean | npm install
 
 EXPOSE 80
 
