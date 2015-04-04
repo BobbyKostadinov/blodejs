@@ -15,11 +15,10 @@ RUN apt-get install -yq nginx make
 RUN apt-get update && apt-get -y install git build-essential curl && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
 RUN apt-get install -y nodejs && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-RUN npm install -g gulp
+
 RUN npm install -g n
 RUN n 0.12.1
 
-RUN npm install -g bunyan
 
 RUN mkdir /srv/www
 
@@ -28,18 +27,17 @@ ADD nginx.conf /etc/nginx/nginx.conf
 
 WORKDIR /srv/www
 
-RUN export NODE_ENV=production
 
 ADD start.sh /tmp/start.sh
 
 RUN chmod +x /tmp/start.sh
 
-
 #Extract this into its own Dockerfile within the application
 
-ADD . /srv/www
+ADD package.json /srv/www/package.json
+RUN npm install
 
-#RUN npm install
+ADD . /srv/www
 
 EXPOSE 80
 
