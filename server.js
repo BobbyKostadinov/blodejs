@@ -40,6 +40,8 @@ app.use(function *(next) {
    yield next;
 });
 
+app.use(mount('/assets', serveStatic(__dirname + '/dist')));
+
 router.get('/favicon.ico', function *(next) {
   this.body = '';
   yield next;
@@ -55,8 +57,6 @@ router.get('/', function *(next) {
 
 app
   .use(router.routes());
-
-app.use(mount('/assets', serveStatic(__dirname + '/dist')));
 
 if (!module.parent) {
   app.listen(PORT, function () {
