@@ -1,7 +1,7 @@
 {
-  "name": "b",
+  "name": "blodeJS",
   "version": "1.2.3-2",
-  "description": "React Isomorphic Starter using KOA",
+  "description": "BlodeJS - a blogging platform made for fun",
   "author": "Bobby Kostadinov b.a.kostadinov@gmail.com",
   "repository": {
     "type": "git",
@@ -11,7 +11,10 @@
     "koa",
     "react",
     "isomorphic",
-    "starter"
+    "starter",
+    "blog",
+    "aws",
+    "Docker"
   ],
   "scripts": {
     "postinstall": "gulp build",

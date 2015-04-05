@@ -1,3 +1,3 @@
 cd /srv/www
-npm start &
-nginx
+nginx &
+npm start
