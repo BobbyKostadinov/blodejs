@@ -11,7 +11,7 @@ function start() {
       js: "node --harmony",
     },
     script: 'server.js',
-    watch: ['server.js', 'dist/**/*.js'],
+    watch: ['server.js', 'dist/**/*.js', 'lib/resources'],
 
     stdout: false
   };
