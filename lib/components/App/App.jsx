@@ -3,6 +3,7 @@
 
 var React = require('react'),
   HelloWorld = require('../HelloWorld/HelloWorld.jsx'),
+  Nav = require('../Nav/Nav.jsx'),
   App;
 
 module.exports = App = React.createClass({
@@ -22,10 +23,12 @@ module.exports = App = React.createClass({
         </head>
 
         <body>
-          <div className="container">
-            <HelloWorld />
+          <div class="container-fluid">
+            <div className="container">
+              <Nav />
+              <HelloWorld />
           </div>
-
+          </div>
           <script src="/assets/App.js" type="text/javascript"></script>
           <script type="text/javascript" dangerouslySetInnerHTML={{
             __html: 'window.renderApp(' + JSON.stringify(this.props) + ');'
