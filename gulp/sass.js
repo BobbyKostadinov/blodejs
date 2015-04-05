@@ -7,7 +7,7 @@ exports.toCss = sassToCss;
 exports.toCssWatch = sassToCssWatch;
 
 function sassToCss() {
-  return gulp.src('./lib/components/App/App.scss')
+  return gulp.src('./lib/Pages/App/App.scss')
     .pipe(sass())
     .on('error', gutil.log.bind(gutil, 'SASS Error'))
     .pipe(gulp.dest('./dist'))
@@ -17,5 +17,5 @@ function sassToCss() {
 function sassToCssWatch() {
   livereload.listen();
   sassToCss();
-  return gulp.watch('./lib/components/**/*.scss', sassToCss);
+  return gulp.watch('./lib/**/*.scss', sassToCss);
 }

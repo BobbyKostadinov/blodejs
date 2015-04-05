@@ -1,5 +1,5 @@
 var React = require('react'),
-  HelloWorld;
+    HelloWorld;
 
 module.exports = HelloWorld = React.createClass({
   render: function () {

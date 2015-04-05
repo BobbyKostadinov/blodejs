@@ -8,7 +8,7 @@ var compression = require('compression'),
     mount = require('koa-mount');
     React = require('react'),
     koaBunyanLogger = require('koa-bunyan-logger'),
-    App = React.createFactory(require('./lib/components/App/App.jsx')),
+    App = require('./lib/resources/app.jsx'),
     router = require('koa-router')();
     app = module.exports = require('koa')();
 
@@ -48,12 +48,10 @@ router.get('/favicon.ico', function *(next) {
 });
 
 router.get('/_health', require('./lib/resources/health'));
-router.get('/', function *(next) {
-  var props = {};
-  this.set('X-Request-Id', this.reqId);
-  this.body = '<!DOCTYPE html>' + React.renderToString(App(props));
-  yield next;
-});
+
+router.get('/', App);
+router.get('/about', App);
+
 
 app
   .use(router.routes());

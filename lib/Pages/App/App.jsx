@@ -2,9 +2,11 @@
 /* global window, document */
 
 var React = require('react'),
-  HelloWorld = require('../HelloWorld/HelloWorld.jsx'),
-  Nav = require('../Nav/Nav.jsx'),
-  App;
+    Router = require('react-router'),
+    Nav = require('./../../components/Nav/Nav.jsx'),
+    App;
+
+var RouteHandler = Router.RouteHandler
 
 module.exports = App = React.createClass({
   getInitialState: function () {
@@ -21,28 +23,17 @@ module.exports = App = React.createClass({
             href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
           <link rel="stylesheet" type="text/css" href="/assets/App.css" />
         </head>
-
         <body>
-          <div class="container-fluid">
-            <div className="container">
+          <div className="container-fluid">
+            <section className="container">
               <Nav />
-              <HelloWorld />
+            </section>
+            <section className="container">
+              <RouteHandler />
+            </section>
           </div>
-          </div>
-          <script src="/assets/App.js" type="text/javascript"></script>
-          <script type="text/javascript" dangerouslySetInnerHTML={{
-            __html: 'window.renderApp(' + JSON.stringify(this.props) + ');'
-          }}>
-          </script>
         </body>
       </html>
     );
   }
 });
-
-if ('object' === typeof window) {
-  window.renderApp = function (props) {
-    var appFactory = React.createFactory(App);
-    React.render(appFactory(props), document);
-  };
-}
