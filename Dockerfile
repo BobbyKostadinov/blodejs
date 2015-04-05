@@ -37,6 +37,10 @@ RUN chmod +x /tmp/start.sh
 ADD . /srv/www
 RUN npm cache clean | npm install
 
+RUN npm install -g gulp
+
+RUN gulp build
+
 EXPOSE 80
 
 CMD /tmp/start.sh
