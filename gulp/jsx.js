@@ -31,7 +31,7 @@ exports.toJsWatch = function () {
 };
 
 function createBundler(isDebug) {
-  return browserify('./lib/Pages/App/App.jsx', {
+  return browserify('./lib/pages/App/App.jsx', {
     cache: {},
     packageCache: {},
     fullPaths: true,

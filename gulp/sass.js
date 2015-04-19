@@ -7,7 +7,7 @@ exports.toCss = sassToCss;
 exports.toCssWatch = sassToCssWatch;
 
 function sassToCss() {
-  return gulp.src('./lib/Pages/App/App.scss')
+  return gulp.src('./lib/pages/App/App.scss')
     .pipe(sass())
     .on('error', gutil.log.bind(gutil, 'SASS Error'))
     .pipe(gulp.dest('./dist'))
