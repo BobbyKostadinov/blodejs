@@ -9,7 +9,7 @@ var AppPage = require('./../pages/App/App.jsx'),
 var routes = (
   <Route handler={AppPage} path="/">
     <Route name="about" handler={AboutPage} path="/about"/>
-    <DefaultRoute name="nav" handler={HelloWorldPage}/>
+    <DefaultRoute name="hello_world_page" handler={HelloWorldPage}/>
   </Route>
 );
 

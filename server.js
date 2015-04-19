@@ -41,6 +41,7 @@ app.use(function *(next) {
 });
 
 app.use(mount('/assets', serveStatic(__dirname + '/dist')));
+app.use(mount('/public', serveStatic(__dirname + '/public')));
 
 router.get('/favicon.ico', function *(next) {
   this.body = '';

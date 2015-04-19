@@ -4,8 +4,8 @@
 var React = require('react'),
     Router = require('react-router'),
     Nav = require('./../../components/Nav/Nav.jsx'),
+    GoogleAnalytics = require('react-g-analytics'),
     App;
-
 var RouteHandler = Router.RouteHandler
 
 module.exports = App = React.createClass({
@@ -29,6 +29,7 @@ module.exports = App = React.createClass({
               <Nav />
             </section>
             <section className="container">
+              <GoogleAnalytics id="UA-62037840-1"/>
               <RouteHandler />
             </section>
           </div>
