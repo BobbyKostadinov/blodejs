@@ -10,7 +10,6 @@ module.exports = Home = React.createClass({
     //Crete an ajax call to a new resource fetching body parts then set state as per tutorial https://facebook.github.io/react/docs/tutorial.html
   },
   render: function () {
-    console.log(this.state);
     return (
 
       <div className="content">
