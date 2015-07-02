@@ -2,14 +2,15 @@
 
 var AppPage = require('./../pages/App/App.jsx'),
     Router  = require('react-router'),
-    HelloWorldPage = require('./../pages/HelloWorld/HelloWorld.jsx'),
+    HomePage = require('./../pages/Home/Home.jsx'),
     AboutPage = require('./../pages/About/About.jsx'),
     Route = Router.Route, DefaultRoute = Router.DefaultRoute;
 
 var routes = (
   <Route handler={AppPage} path="/">
+    <Route name="home" handler={HomePage} path="/"/>
     <Route name="about" handler={AboutPage} path="/about"/>
-    <DefaultRoute name="hello_world_page" handler={HelloWorldPage}/>
+    <DefaultRoute name="default" handler={HomePage}/>
   </Route>
 );
 

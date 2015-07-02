@@ -33,28 +33,28 @@ require('load-common-gulp-tasks')(gulp, {
       server: ".jshintrc"
     },
     paths: {
-        lint: [
-            './*.js',
-            '!server.js',
-            '!./lib/**/target/**/*.js',
-            '!./lib/components/**'
-        ],
-        felint: [
-            './lib/*/content/scripts/*.js',
-            '.!/lib/components/*'
-        ],
-        cover: [
-          './lib/**/*.js',
-          '!./lib/**/*-test.js',
-          '!./lib/components/**'
-        ],
-        test: [
-          './test/**/*.js',
-          '!./lib/components/**',
-          './lib/**/test/**/*.js'
-        ]
+      lint: [
+                './*.js',
+                '!server.js',
+                '!./lib/**/target/**/*.js',
+                '!./lib/components/**'
+            ],
+            felint: [
+                './lib/*/content/scripts/*.js',
+                '.!/lib/components/*'
+            ],
+            cover: [
+              './lib/**/*.js',
+              '!./lib/**/*-test.js'
+            ],
+            test: [
+              './lib/**/*-test.js',
+              '!./lib/components/**',
+              './lib/**/test/**/*.js'
+            ]
     }
 });
+
 function inc(importance) {
     return gulp.src(['./package.json'])
     .pipe(bump({type: importance}))
