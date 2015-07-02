@@ -6,9 +6,6 @@ FROM phusion/baseimage:0.9.16
 
 run DEBIAN_FRONTEND=noninteractiv
 
-RUN ulimit -n 1000 && \
-    apt-get update && \
-    apt-get install curl
 
 RUN apt-get install -yq nginx make
 
