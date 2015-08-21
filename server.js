@@ -1,4 +1,4 @@
-require('node-jsx').install({extension: '.jsx'});
+require('node-jsx').install({extension: '.jsx', harmony: true});
 
 var compression = require('compression'),
     serveStatic = require('koa-static'),
@@ -8,7 +8,7 @@ var compression = require('compression'),
     mount = require('koa-mount');
     React = require('react'),
     koaBunyanLogger = require('koa-bunyan-logger'),
-    App = require('./lib/resources/app.jsx'),
+    Page = require('./lib/resources/page.js'),
     router = require('koa-router')();
     app = module.exports = require('koa')();
 
@@ -50,8 +50,7 @@ router.get('/favicon.ico', function *(next) {
 
 router.get('/_health', require('./lib/resources/health'));
 
-router.get('/', App);
-router.get('/about', App);
+router.get('/*', Page);
 
 
 app

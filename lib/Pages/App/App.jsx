@@ -1,18 +1,21 @@
 /** @jsx React.DOM */
 /* global window, document */
-
 var React = require('react'),
     Router = require('react-router'),
+    Route = Router.Route, DefaultRoute = Router.DefaultRoute,
     Nav = require('./../../components/Nav/Nav.jsx'),
-    App;
-var RouteHandler = Router.RouteHandler
+    RouteHandler = Router.RouteHandler,
+    HomePage = require('./../Home/Home.jsx'),
+    AboutPage = require('./../About/About.jsx'),
+    PortfolioPage = require('./../Portfolio/Portfolio.jsx');
 
-module.exports = App = React.createClass({
-  getInitialState: function () {
-    return this.props;
-  },
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = props;
+  }
 
-  render: function () {
+  render () {
     return (
       <html lang="en">
         <head>
@@ -35,4 +38,15 @@ module.exports = App = React.createClass({
       </html>
     );
   }
-});
+}
+App.routes = (
+  <Route handler={App} path="/">
+    <Route name="home" handler={HomePage} path="/"/>
+    <Route name="about" handler={AboutPage} path="/about"/>
+    <Route name="portfolio" handler={PortfolioPage} path="/portfolio"/>
+    <DefaultRoute name="default" handler={HomePage}/>
+  </Route>
+);
+
+
+module.exports = App;

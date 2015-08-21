@@ -13,8 +13,8 @@ var gulp = require('gulp'),
 gulp.task('build', ['jsx', 'sass']);
 gulp.task('dev', ['jsx-watch', 'sass-watch', 'nodemon']);
 
-gulp.task('jsx', jsx.toJs);
-gulp.task('jsx-watch', jsx.toJsWatch);
+gulp.task('jsx', jsx.toJs('./lib/pages/App/App.jsx', 'App.js'));
+gulp.task('jsx-watch', jsx.toJsWatch('./lib/pages/App/App.jsx', 'App.js'));
 
 gulp.task('sass', sass.toCss);
 gulp.task('sass-watch', sass.toCssWatch);

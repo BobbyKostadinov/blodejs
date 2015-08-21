@@ -4,6 +4,9 @@
 
 ## Intro
 
+This is a playground project for me to experiment with new technologies and libraries;
+
+
 Contains NODEjs + Nginx set up to run on AWS Elastic Beanstalk. I use this for my own projects' set up
 
 ## License

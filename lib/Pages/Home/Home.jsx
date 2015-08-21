@@ -4,8 +4,7 @@ var React = require('react'),
 
 module.exports = Home = React.createClass({
   getInitialState: function() {
-    var page = new Page('home');
-    var state = {headline: "", body: ""};
+    var state = {headline: "Home", body: "Hello World HOME PAGE"};
     return state;
     //Crete an ajax call to a new resource fetching body parts then set state as per tutorial https://facebook.github.io/react/docs/tutorial.html
   },
